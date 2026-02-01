@@ -4,6 +4,8 @@ import os
 
 
 def eigen_faces(W, h, w, output_folder="output"):
+    if os.path.exists(output_folder) is False:
+        os.mkdir(output_folder)
     n_components = W.shape[1]
     plt.figure(figsize=(15, 10))
     for i in range(min(n_components,20)):
@@ -14,10 +16,6 @@ def eigen_faces(W, h, w, output_folder="output"):
         plt.axis("off")
     plt.savefig(os.path.join(output_folder, "eigenfaces.png"))
     plt.close()
-
-
-def ricostruttore(Dataset_PCA, W, mean):
-    return np.dot(Dataset_PCA, W.T) + mean
 
 
 def comparison(original, reconstructed, h, w, img_index, output_folder="output"):

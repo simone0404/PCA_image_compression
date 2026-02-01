@@ -22,9 +22,9 @@ PCA_values = Dataset_PCA.size + W.size + mean.size
 print(f"Original values: {Original_values}, PCA values: {PCA_values}")
 print(f"Risparmio: {(Original_values - PCA_values)/Original_values*100:.2f}%")
 Ricostruzione.eigen_faces(W, 112, 92)
-Dataset_reconstructed = Ricostruzione.ricostruttore(Dataset_PCA, W, mean)
+Dataset_weights = np.dot(Dataset_PCA, W.T) + mean
 img_index = 53
-Ricostruzione.comparison(Dataset[img_index], Dataset_reconstructed[img_index], height, width, img_index)
+Ricostruzione.comparison(Dataset[img_index], Dataset_weights[img_index], height, width, img_index)
 Data_test = load_foto_test(project_root, width, height)
 weights = np.dot(Data_test - mean, W)
 Data_test_reconstructed = np.dot(weights, W.T) + mean
