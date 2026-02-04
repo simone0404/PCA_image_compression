@@ -28,9 +28,10 @@ def comparison(original, reconstructed, img_name, target_size=(92, 112), output_
     Plot original and reconstructed images
     Target size is (width, height)
     """
-    mse = np.mean((original - reconstructed) ** 2)
-    variance = np.var(original)
-    similarity = (1 - mse / variance) * 100 if variance > 0 else 0
+    mse = np.mean((original - reconstructed) ** 2)  # sigma_noise^2
+    variance = np.var(original)  # sigma_signal^2
+    nsr = mse / variance if variance > 0 else 0  # noise-signal ratio
+    similarity = (1 - nsr) * 100 if variance > 0 else 0
     plt.figure(figsize=(8, 4))
     plt.suptitle(f"MSE = {mse:.4f}, Qualità = {similarity:.2f}%")
     plt.subplot(1, 2, 1)
